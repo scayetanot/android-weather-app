@@ -13,5 +13,5 @@ object RetrofitBuilder {
             .build() //Doesn't require the adapter
     }
 
-    val apiService: DarkSkyApi = getRetrofit().create(DarkSkyApi::class.java)
+    val apiDarkSky: DarkSkyApi = getRetrofit().create(DarkSkyApi::class.java)
 }

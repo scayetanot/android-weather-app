@@ -9,7 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.example.weather.databinding.ActivityMainBinding
+import com.example.weather.databinding.ActivityMainWeatherBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -17,12 +17,12 @@ class MainActivity : AppCompatActivity() {
     private val LOCATION_REQUEST_CODE = 666
 
     private lateinit var tempTextField: TextView
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityMainWeatherBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_weather)
 
         tempTextField = findViewById(R.id.tmpTextView)
 

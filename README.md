@@ -34,4 +34,6 @@ What to use:
 - Use a clear architecture pattern that you feel most comfortable with (MVC is still valid).
 - Be prepared to clearly explain how/why you architect your code.
 
+Please upload your project to Github as a private with an invitation to jarrodholliday. When completed reply all to this email with a link (please commit frequently as you work on your assignment)!  
+
 

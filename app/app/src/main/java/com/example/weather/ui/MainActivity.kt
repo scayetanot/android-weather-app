@@ -13,20 +13,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.MainApplication
 import com.example.weather.R
-import com.example.weather.databinding.ActivityMainWeatherBinding
-import javax.inject.Inject
+import com.example.weather.databinding.ActivityWeatherBinding
 
 class MainActivity : AppCompatActivity() {
     private val appComponents by lazy { MainApplication.appComponents }
     private val LOCATION_REQUEST_CODE = 666
 
-    private lateinit var binding: ActivityMainWeatherBinding
-
+    private lateinit var binding: ActivityWeatherBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         appComponents.inject(this)
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main_weather)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_weather)
 
         initViews()
         initObservers()

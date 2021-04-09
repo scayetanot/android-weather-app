@@ -17,15 +17,16 @@ data class WeatherForeCastResponse(
 ) {
     fun mapToForeCast(): ForeCast {
         return ForeCast(
-            latitude,
-            longitude,
-            convertToReadableDate(currently.time),
-            currently.summary,
-            "icon",
-            currently.temperature.toString(),
-            "00",
-            "99",
-            emptyList()
+                "",
+                latitude,
+                longitude,
+                convertToReadableDate(currently.time),
+                currently.summary,
+                "icon",
+                currently.temperature,
+                getMinTemp(hourly.data),
+                getMaxTemp(hourly.data),
+                hourly.data
         )
     }
 
@@ -34,4 +35,13 @@ data class WeatherForeCastResponse(
         cal.timeInMillis = timestamp * 1000
         return DateFormat.format("dd-MM-yyyy  HH:mm:ss", cal).toString()
     }
+
+    private fun getMinTemp(listOfTemp: List<HourlyDataEntity>?): Float? {
+        return listOfTemp?.minBy { it.temperature }?.temperature
+    }
+
+    private fun getMaxTemp(listOfTemp: List<HourlyDataEntity>): Float? {
+        return listOfTemp?.maxBy { it.temperature }?.temperature
+    }
 }
+

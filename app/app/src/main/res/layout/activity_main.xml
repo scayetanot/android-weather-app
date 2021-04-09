@@ -8,53 +8,55 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center"
         android:background="@color/cardview_light_background"
-        tools:context=".MainActivity">
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context=".MainActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="-77dp">
 
         <TextView
             android:id="@+id/locationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="56sp"
-            android:text="Los Angeles"
             android:maxLines="1"
-            tools:text="Irvine"/>
+            android:text="Los Angeles"
+            android:textSize="56sp"
+            tools:text="Irvine" />
 
         <TextView
             android:id="@+id/locationTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
-            android:textSize="14sp"
             android:text="Tuesday, 22nd March - 10:30pm"
-            tools:text="Tuesday, 22nd March - 10:30pm"/>
+            android:textSize="14sp"
+            tools:text="Tuesday, 22nd March - 10:30pm" />
 
         <TextView
             android:id="@+id/locationSummary"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:text="summary"
             android:textSize="14sp"
-            android:text="Tuesday, 22nd March - 10:30pm"
-            tools:text="Tuesday, 22nd March - 10:30pm"/>
+            tools:text="Tuesday, 22nd March - 10:30pm" />
 
         <ImageView
             android:id="@+id/locationWeatherPic"
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="5dp"
-            android:src="@drawable/default_weather"/>
+            android:src="@drawable/default_weather" />
 
         <TextView
             android:id="@+id/locationCurrentTemperature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:textSize="54sp"
             android:text="@string/empty_value"
-            tools:text="23"/>
+            android:textSize="54sp"
+            tools:text="23" />
 
 
         <LinearLayout
@@ -66,17 +68,25 @@
                 android:id="@+id/locationMinTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="@string/empty_value"
-                tools:text="10"/>
+                android:textSize="14sp"
+                tools:text="10" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="@string/separation"/>
+
 
             <TextView
                 android:id="@+id/locationMaxTemperature"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="14sp"
                 android:text="@string/empty_value"
-                tools:text="35"/>
+                android:textSize="14sp"
+                tools:text="35" />
 
         </LinearLayout>
 

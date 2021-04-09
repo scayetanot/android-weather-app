@@ -1,8 +1,10 @@
 package com.example.weather.data_source
 
+import com.example.weather.BuildConfig
 import com.example.weather.data.ResultForeCast
-import com.example.weather.data.entity.WeatherForeCastResponse
 import com.example.weather.data.api.ApiDarkSky
+import com.example.weather.data.entity.ForeCast
+import com.example.weather.data.entity.response.WeatherForeCastResponse
 import com.example.weather.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
@@ -17,7 +19,7 @@ class RemoteDataSourceImpl(
     ): ResultForeCast<WeatherForeCastResponse> =
         withContext(ioDispatcher) {
             val request =
-                api.getForecast(latitude, longitude)
+                api.getForecast(BuildConfig.DARKSKY_SECRET_KEY, latitude, longitude)
             ResultForeCast.Success(request)
         }
 }

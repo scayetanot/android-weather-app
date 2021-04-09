@@ -5,10 +5,12 @@ import com.example.weather.data.api.ApiDarkSky
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
+
 
 const val IO_TIMEOUT = 30L
 
@@ -21,8 +23,8 @@ class NetworkModule {
         gsonConverterFactory: GsonConverterFactory,
         okHttpClient: OkHttpClient
     ): Retrofit {
-        val darkSkyUrl = BuildConfig.DARKSKY_URL + BuildConfig.DARKSKY_SECRET_KEY + "/"
-        return Retrofit.Builder().baseUrl(darkSkyUrl)
+      //  val darkSkyUrl = BuildConfig.DARKSKY_URL + BuildConfig.DARKSKY_SECRET_KEY + "/"
+        return Retrofit.Builder().baseUrl(BuildConfig.DARKSKY_URL)
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
@@ -31,7 +33,11 @@ class NetworkModule {
     @Provides
     @Singleton
     fun providesOkHttpClient(): OkHttpClient {
+        val logging = HttpLoggingInterceptor()
+        logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+
         val client = OkHttpClient.Builder()
+            .addInterceptor(logging)
             .connectTimeout(IO_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(IO_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(IO_TIMEOUT, TimeUnit.SECONDS)

@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
-    <data>
-        <variable name="locationNameValue" type="String"/>
-        <variable name="locationTimeValue" type="String"/>
-        <variable name="locationWeatherImageValue" type="String"/>
-        <variable name="locationCurrentTemperatureValue" type="String"/>
-        <variable name="locationMinTemperatureValue" type="String"/>
-        <variable name="locationMaxTemperatureValue" type="String"/>
-    </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -24,8 +17,9 @@
             android:id="@+id/locationName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="76sp"
-            android:text="@{locationNameValue, default=`Los Angeles`}"
+            android:textSize="56sp"
+            android:text="Los Angeles"
+            android:maxLines="1"
             tools:text="Irvine"/>
 
         <TextView
@@ -34,15 +28,24 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textSize="14sp"
-            android:text="@{locationTimeValue, default=`--`}"
+            android:text="Tuesday, 22nd March - 10:30pm"
+            tools:text="Tuesday, 22nd March - 10:30pm"/>
+
+        <TextView
+            android:id="@+id/locationSummary"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="14sp"
+            android:text="Tuesday, 22nd March - 10:30pm"
             tools:text="Tuesday, 22nd March - 10:30pm"/>
 
         <ImageView
             android:id="@+id/locationWeatherPic"
             android:layout_width="150dp"
             android:layout_height="150dp"
-            android:layout_marginTop="20dp"
-            app:src="@{context.getDrawable(locationWeatherImageValue)}"/>
+            android:layout_marginTop="5dp"
+            android:src="@drawable/default_weather"/>
 
         <TextView
             android:id="@+id/locationCurrentTemperature"
@@ -50,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:textSize="54sp"
-            android:text="@{locationCurrentTemperatureValue, default=`--`}"
+            android:text="@string/empty_value"
             tools:text="23"/>
 
 
@@ -64,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="@{locationMinTemperatureValue, default=`--`}"
+                android:text="@string/empty_value"
                 tools:text="10"/>
 
             <TextView
@@ -72,10 +75,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:text="@{locationMaxTemperatureValue, default=`--`}"
+                android:text="@string/empty_value"
                 tools:text="35"/>
 
         </LinearLayout>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
-</layout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

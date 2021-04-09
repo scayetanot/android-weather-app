@@ -17,7 +17,7 @@ android {
         versionName "1.0"
 
         //DarkSky setup
-        buildConfigField 'String', 'DARKSKY_URL', "\"https://api.darksky.net/forecast/\""
+        buildConfigField 'String', 'DARKSKY_URL', "\"https://api.darksky.net/\""
         buildConfigField 'String', 'DARKSKY_SECRET_KEY', "\"d76cdb142a6138e1a2333ce89e5ee4c0\""
 
         //multidex enabling
@@ -31,9 +31,9 @@ android {
     //    dataBinding true
    //}
 
-    dataBinding {
-        enabled true
-    }
+    //dataBinding {
+    //    enabled true
+    //}
 
     buildTypes {
         release {
@@ -69,6 +69,8 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation 'androidx.activity:activity-ktx:1.2.2'
 
+    implementation "com.google.android.gms:play-services-location:18.0.0"
+
 
     //LifeCycle
     implementation 'androidx.lifecycle:lifecycle-common:2.3.1'
@@ -87,20 +89,22 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:2.27"
 
     //networking retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation('com.squareup.retrofit2:retrofit:2.9.0') {
+        exclude module: 'okhttp'
+    }
     implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.code.gson:gson:2.8.6'
 
     //networking OkHttp
-    implementation(platform("com.squareup.okhttp3:okhttp-bom:4.9.1"))
-    implementation("com.squareup.okhttp3:okhttp")
-    implementation("com.squareup.okhttp3:logging-interceptor")
+    implementation 'com.squareup.okhttp3:okhttp:4.9.1'
+    implementation 'com.squareup.okhttp3:okhttp-urlconnection:4.9.1'
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
 
     //Coroutines
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.4.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1'
 
-    kapt 'com.android.databinding:compiler:3.1.4'
+   // kapt 'com.android.databinding:compiler:3.1.4'
 
 
     testImplementation 'junit:junit:4.+'

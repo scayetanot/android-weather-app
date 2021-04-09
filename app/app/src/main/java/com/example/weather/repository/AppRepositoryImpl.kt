@@ -2,7 +2,8 @@ package com.example.weather.repository
 
 import com.example.weather.data.RemoteDataNotFoundException
 import com.example.weather.data.ResultForeCast
-import com.example.weather.data.entity.WeatherForeCastResponse
+import com.example.weather.data.entity.ForeCast
+import com.example.weather.data.entity.response.WeatherForeCastResponse
 import com.example.weather.data_source.RemoteDataSource
 import com.example.weather.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher

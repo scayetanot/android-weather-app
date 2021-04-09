@@ -1,5 +1,7 @@
 package com.example.weather.ui
 
+import android.content.Context
+import android.location.Address
 import androidx.lifecycle.LiveData
 import android.location.Geocoder
 import androidx.lifecycle.MutableLiveData
@@ -9,6 +11,7 @@ import com.example.weather.data.ResultForeCast
 import com.example.weather.data.entity.ForeCast
 import com.example.weather.repository.AppRepositoryImpl
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 
@@ -18,7 +21,7 @@ class MainActivityViewModel @Inject constructor(
 
     val forecastResponse = MutableLiveData<ForeCast>()
 
-   // val findCityResponse = MutableLiveData<String>()
+    val findCityResponse = MutableLiveData<String>()
 
     private var _errorMessage = MutableLiveData<String>()
     var errorMessage: LiveData<String> = _errorMessage
@@ -29,9 +32,7 @@ class MainActivityViewModel @Inject constructor(
             try {
                when (val response = repositoryImpl.getForecast(lat, lon)){
                     is ResultForeCast.Success -> {
-                        var foreCast: ForeCast = response.data.mapToForeCast()
-                      /*  foreCast.city = getCityName(foreCast.latitude, foreCast.longitude) */
-                        forecastResponse.postValue(foreCast)
+                        forecastResponse.postValue(response.data.mapToForeCast())
                     }
                     is ResultForeCast.Error -> {
                         _errorMessage.postValue(response.exception.toString())
@@ -43,21 +44,15 @@ class MainActivityViewModel @Inject constructor(
         }
     }
 
- //   fun getCityName(lat: Double, lon: Double){
-  //      viewModelScope.launch {
-  //          try {
-  //              var gcd = Geocoder(context, Locale.getDefault())
-  //              var addr: List<Address>
-  //              var cityName: String = "Unknown city"
+    fun getCityName(ctx: Context, lat: Double, lon: Double){
+        viewModelScope.launch {
+            val gcd = Geocoder(ctx , Locale.getDefault())
+            val addr: List<Address>
+            var cityName: String?= "Unknown city"
 
-   //             addresses = gcd.getFromLocation(lat, lon, 1)
-   //             cityName = "test"
-   //             findCityResponse.postValue(cityName)
-   //         } catch {
-   //             (e: Exception) {
-   //                 _errorMessage.postValue(e.message)
-   //             }
-   //         }
-   //     }
-   // }
+            addr = gcd.getFromLocation(lat, lon, 1)
+            cityName = addr.firstOrNull()?.locality
+            findCityResponse.postValue(cityName!!)
+        }
+    }
 }

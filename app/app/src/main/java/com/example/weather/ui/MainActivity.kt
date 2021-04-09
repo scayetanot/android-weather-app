@@ -53,8 +53,7 @@ class MainActivity : AppCompatActivity() {
     private fun initObservers() {
 
         getViewModel().forecastResponse.observe(this, Observer {
-           // getViewModel().getCityName(it.latitude, it.longitude)
-           // locationName.text = it.latitude.toString() + it.longitude.toString()
+            getViewModel().getCityName(applicationContext, it.latitude, it.longitude)
             locationTime.text = it.dateTime
             locationSummary.text = it.summary
            //locationWeatherPic.setImageDrawable(getDrawable(it.summary.icon)
@@ -63,9 +62,9 @@ class MainActivity : AppCompatActivity() {
             locationMaxTemperature.text = formatTemperature(it.maxTemp)  //+ "\u2109"
         })
 
-      //  getViewModel().findCityResponse.observe(this, Observer {
-       //     locationName.text = it
-     //   })
+        getViewModel().findCityResponse.observe(this, Observer {
+            locationName.text = it
+        })
 
         getViewModel().errorMessage.observe(this, Observer {
             Toast.makeText(this,"Connection Error",Toast.LENGTH_LONG).show();

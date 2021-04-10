@@ -23,9 +23,9 @@ class HourlyTemperatureViewModel @Inject constructor(
     fun getHourlyTemperatures(lat: Double, lon: Double){
         viewModelScope.launch {
             try{
-                when(val response = repositoryImpl.getForecast(lat, lon)){
+                when(val response = repositoryImpl.getDetailsForHourlyForecast()){
                     is ResultForeCast.Success -> {
-                        _resultHourlyTemperature.postValue(response.data.mapToForeCast().hourlyDetails)
+                        _resultHourlyTemperature.postValue(response.data)
                     }
                     is ResultForeCast.Error -> {
                         _errorMessage.postValue(response.exception.toString())

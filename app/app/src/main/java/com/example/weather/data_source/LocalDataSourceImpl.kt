@@ -17,7 +17,7 @@ interface LocalDataSourceImpl {
     suspend fun setHourlyTemperature(listHourlyTemperature: List<HourlyDataEntity?>)
 
     @Query("SELECT * FROM WeatherForeCastResponse")
-    suspend fun getForecast(latitude: Double, longitude: Double): WeatherForeCastResponse
+    suspend fun getForecast(): WeatherForeCastResponse
 
     @Insert(onConflict = REPLACE)
     suspend fun setForecast(foreCast: WeatherForeCastResponse?)

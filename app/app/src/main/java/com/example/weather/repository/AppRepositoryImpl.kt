@@ -38,19 +38,16 @@ class AppRepositoryImpl(
         }
     }
 
-    override suspend fun getForecastFromDb(
-        latitude: Double,
-        longitude: Double
-    ): ResultForeCast<WeatherForeCastResponse> =
+    override suspend fun getForecastFromDb(): ResultForeCast<WeatherForeCastResponse> =
         withContext(ioDispatcher) {
-            ResultForeCast.Success(localDataSource.getForecast(latitude, longitude))
+            ResultForeCast.Success(localDataSource.getForecast())
         }
 
     override suspend fun getForecast(latitude: Double, longitude: Double): ResultForeCast<WeatherForeCastResponse> {
         return if (isInternetOn) {
             getForecastFromApi(latitude, longitude)
         } else {
-            getForecastFromDb(latitude, longitude)
+            getForecastFromDb()
         }
     }
 

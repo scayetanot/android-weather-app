@@ -10,5 +10,5 @@ data class ForeCast(
     var currentTemp: Float?,
     var minTemp: Float?,
     var maxTemp: Float?,
-    var hourlyDetails: List<HourlyDataEntity>
+    var hourlyDetails: MutableList<HourlyDataEntity>
 )

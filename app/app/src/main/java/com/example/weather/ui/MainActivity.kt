@@ -1,19 +1,33 @@
 package com.example.weather.ui
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
 import android.os.Bundle
 import android.util.Log
+import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.PopupWindow
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 import com.example.weather.MainApplication
 import com.example.weather.R
+import com.example.weather.data.entity.HourlyDataEntity
+import com.example.weather.ui.fragment.HourlyTemperaturesFragment
+import com.example.weather.utils.findDrawable
+import com.example.weather.utils.formatTemperature
+import com.example.weather.utils.replaceFragment
 import com.example.weather.utils.viewModelProvider
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -25,7 +39,10 @@ class MainActivity : AppCompatActivity() {
     private val LOCATION_REQUEST_CODE = 666
     private val DFLT_LAT: Double = 33.942791
     private val DFLT_LONG: Double = -118.410042
-    //private val defaultLocation:
+    private var detailedList = mutableListOf<HourlyDataEntity>()
+
+    private var latitude: Double = DFLT_LAT
+    private var longitude: Double = DFLT_LONG
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -36,10 +53,19 @@ class MainActivity : AppCompatActivity() {
         appComponents.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         initViews()
         initObservers()
         checkLocationPermission()
+
+        weatherLayout.setOnClickListener {
+            if (savedInstanceState == null) {
+                frame_layout_container.visibility = View.VISIBLE
+                replaceFragment(HourlyTemperaturesFragment(), R.id.frame_layout_container)
+            }
+        }
+
     }
 
     private fun getViewModel(): MainActivityViewModel {
@@ -47,7 +73,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun initViews() {
-        getViewModel().getForeCast(DFLT_LAT, DFLT_LONG )
+        getViewModel().getForeCast(latitude, longitude )
     }
 
     private fun initObservers() {
@@ -56,10 +82,13 @@ class MainActivity : AppCompatActivity() {
             getViewModel().getCityName(applicationContext, it.latitude, it.longitude)
             locationTime.text = it.dateTime
             locationSummary.text = it.summary
-           //locationWeatherPic.setImageDrawable(getDrawable(it.summary.icon)
+            locationWeatherPic.setImageDrawable(findDrawable(context, hourlyTemperature.icon))
+
+            //locationWeatherPic.setImageDrawable(getDrawable(it.summary.icon)
             locationCurrentTemperature.text = formatTemperature(it.currentTemp)
-            locationMinTemperature.text = formatTemperature(it.minTemp) // + "\u2109"
-            locationMaxTemperature.text = formatTemperature(it.maxTemp)  //+ "\u2109"
+            locationMinTemperature.text = formatTemperature(it.minTemp)
+            locationMaxTemperature.text = formatTemperature(it.maxTemp)
+            detailedList = it.hourlyDetails
         })
 
         getViewModel().findCityResponse.observe(this, Observer {
@@ -69,10 +98,6 @@ class MainActivity : AppCompatActivity() {
         getViewModel().errorMessage.observe(this, Observer {
             Toast.makeText(this,"Connection Error",Toast.LENGTH_LONG).show();
         })
-    }
-
-    private fun formatTemperature(temperature: Float?): String {
-        return temperature?.toInt().toString() + "\u2109"
     }
 
     private fun checkLocationPermission() {
@@ -126,9 +151,9 @@ class MainActivity : AppCompatActivity() {
     private fun requestLocation(){
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
-                getViewModel().getForeCast(location!!.latitude, location.longitude)
+                latitude = location!!.latitude
+                longitude = location.longitude
+                getViewModel().getForeCast(latitude, longitude)
             }
     }
-
-
 }

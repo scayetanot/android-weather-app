@@ -2,6 +2,7 @@ package com.example.weather.data.entity.response
 
 import android.text.format.DateFormat
 import com.example.weather.data.entity.*
+import com.example.weather.utils.convertToReadableDate
 import java.util.*
 
 data class WeatherForeCastResponse(
@@ -30,11 +31,7 @@ data class WeatherForeCastResponse(
         )
     }
 
-    private fun convertToReadableDate(timestamp: Long): String {
-        val cal = Calendar.getInstance(Locale.ENGLISH)
-        cal.timeInMillis = timestamp * 1000
-        return DateFormat.format("dd-MM-yyyy  HH:mm:ss", cal).toString()
-    }
+
 
     private fun getMinTemp(listOfTemp: List<HourlyDataEntity>?): Float? {
         return listOfTemp?.minBy { it.temperature }?.temperature

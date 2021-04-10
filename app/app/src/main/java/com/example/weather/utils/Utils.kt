@@ -25,7 +25,7 @@ fun formatTemperature(temperature: Float?): String {
 }
 
 fun findDrawable(context: Context, name: String): Drawable {
-    val drawableId = context.resources.getIdentifier(name, "drawable", context.packageName)
+    val drawableId = context.resources.getIdentifier(name.replace("-",""), "drawable", context.packageName)
     return context.resources.getDrawable(drawableId)
 };
 

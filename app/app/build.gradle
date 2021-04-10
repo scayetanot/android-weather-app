@@ -104,7 +104,7 @@ dependencies {
    // kapt 'com.android.databinding:compiler:3.1.4'
 
     //room
-    implementation "androidx.room:room-coroutines:2.1.0"
+    implementation "androidx.room:room-ktx:2.2.6"
     implementation "androidx.room:room-runtime:2.2.6"
     kapt "androidx.room:room-compiler:2.2.6"
 

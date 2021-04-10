@@ -1,6 +1,5 @@
 package com.example.weather.ui.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.example.weather.MainApplication
 import com.example.weather.R
 import com.example.weather.data.entity.HourlyDataEntity
 import com.example.weather.databinding.DetailsFragmentBinding
+import com.example.weather.utils.viewModelProvider
 import javax.inject.Inject
 
 class HourlyTemperaturesFragment: Fragment() {

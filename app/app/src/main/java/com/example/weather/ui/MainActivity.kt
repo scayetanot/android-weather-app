@@ -82,9 +82,7 @@ class MainActivity : AppCompatActivity() {
             getViewModel().getCityName(applicationContext, it.latitude, it.longitude)
             locationTime.text = it.dateTime
             locationSummary.text = it.summary
-            locationWeatherPic.setImageDrawable(findDrawable(context, hourlyTemperature.icon))
-
-            //locationWeatherPic.setImageDrawable(getDrawable(it.summary.icon)
+            locationWeatherPic.setImageDrawable(findDrawable(applicationContext, it.icon))
             locationCurrentTemperature.text = formatTemperature(it.currentTemp)
             locationMinTemperature.text = formatTemperature(it.minTemp)
             locationMaxTemperature.text = formatTemperature(it.maxTemp)

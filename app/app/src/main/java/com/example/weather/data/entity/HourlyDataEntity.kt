@@ -1,22 +1,44 @@
 package com.example.weather.data.entity
 
-class HourlyDataEntity (
-    var time: Long,
-    var summary: String,
-    var icon: String,
-    var precipIntensity: Float,
-    var precipProbability: Float,
-    var precipType: String,
-    var temperature: Float,
-    var apparentTemperature: Float,
-    var dewPoint: Float,
-    var humidity: Float,
-    var pressure: Float,
-    var windSpeed: Float,
-    var windGust: Float,
-    var windBearing: Float,
-    var cloudCover: Float,
-    var uvIndex: Int,
-    var visibility: Float,
-    var ozone: Float
-)
+import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
+
+data class HourlyDataEntity (
+        @SerializedName("time")
+        var time: Long,
+        @SerializedName("summary")
+        var summary: String,
+        @SerializedName("icon")
+        var icon: String,
+        @SerializedName("precipIntensity")
+        var precipIntensity: Float,
+        @SerializedName("precipProbability")
+        var precipProbability: Float,
+        @SerializedName("precipType")
+        var precipType: String,
+        @SerializedName("temperature")
+        var temperature: Float,
+        @SerializedName("apparentTemperature")
+        var apparentTemperature: Float,
+        @SerializedName("dewPoint")
+        var dewPoint: Float,
+        @SerializedName("humidity")
+        var humidity: Float,
+        @SerializedName("pressure")
+        var pressure: Float,
+        @SerializedName("windSpeed")
+        var windSpeed: Float,
+        @SerializedName("windGust")
+        var windGust: Float,
+        @SerializedName("windBearing")
+        var windBearing: Float,
+        @SerializedName("cloudCover")
+        var cloudCover: Float,
+        @SerializedName("uvIndex")
+        var uvIndex: Int,
+        @SerializedName("visibility")
+        var visibility: Float,
+        @SerializedName("ozone")
+        var ozone: Float
+) : Serializable

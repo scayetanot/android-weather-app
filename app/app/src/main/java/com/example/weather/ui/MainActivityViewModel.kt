@@ -32,7 +32,7 @@ class MainActivityViewModel @Inject constructor(
             try {
                when (val response = repositoryImpl.getForecast(lat, lon)){
                     is ResultForeCast.Success -> {
-                        forecastResponse.postValue(response.data.mapToForeCast())
+                        forecastResponse.postValue(response.data)
                     }
                     is ResultForeCast.Error -> {
                         _errorMessage.postValue(response.exception.toString())

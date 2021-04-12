@@ -5,5 +5,5 @@ import com.example.weather.data.entity.ForeCast
 import com.example.weather.data.entity.response.WeatherForeCastResponse
 
 interface RemoteDataSource {
-    suspend fun getForecast(latitude: Double, longitude: Double): ResultForeCast<WeatherForeCastResponse>
+    suspend fun getForecast(latitude: Double, longitude: Double): ResultForeCast<ForeCast>
 }

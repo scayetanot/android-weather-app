@@ -22,13 +22,12 @@ class AppRepositoryImpl(
 
     private val isInternetOn = InternetUtil.isInternetOn()
 
-    override suspend fun getForecastFromApi(latitude: Double, longitude: Double): ResultForeCast<WeatherForeCastResponse> {
+    override suspend fun getForecastFromApi(latitude: Double, longitude: Double): ResultForeCast<ForeCast> {
         return when (val result = remoteDataSource.getForecast(latitude, longitude)) {
             is ResultForeCast.Success -> {
                 val response = result.data
                 withContext(ioDispatcher) {
                     localDataSource.setForecast(response)
-                    localDataSource.setHourlyTemperature(response.hourly.data)
                 }
                 ResultForeCast.Success(response)
             }
@@ -38,12 +37,12 @@ class AppRepositoryImpl(
         }
     }
 
-    override suspend fun getForecastFromDb(): ResultForeCast<WeatherForeCastResponse> =
+    override suspend fun getForecastFromDb(): ResultForeCast<ForeCast> =
         withContext(ioDispatcher) {
             ResultForeCast.Success(localDataSource.getForecast())
         }
 
-    override suspend fun getForecast(latitude: Double, longitude: Double): ResultForeCast<WeatherForeCastResponse> {
+    override suspend fun getForecast(latitude: Double, longitude: Double): ResultForeCast<ForeCast> {
         return if (isInternetOn) {
             getForecastFromApi(latitude, longitude)
         } else {
@@ -53,6 +52,6 @@ class AppRepositoryImpl(
 
     override suspend fun getDetailsForHourlyForecast(): ResultForeCast<List<HourlyDataEntity>> =
         withContext(ioDispatcher){
-            ResultForeCast.Success(localDataSource.getHourlyTemperature())
+            ResultForeCast.Success(localDataSource.getHourlyTemperature().hourlyDetails)
         }
 }

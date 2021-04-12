@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity() {
     private val LOCATION_REQUEST_CODE = 666
     private val DFLT_LAT: Double = 33.942791
     private val DFLT_LONG: Double = -118.410042
-    private var detailedList = mutableListOf<HourlyDataEntity>()
 
     private var latitude: Double = DFLT_LAT
     private var longitude: Double = DFLT_LONG
@@ -79,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             locationCurrentTemperature.text = formatTemperature(it.currentTemp)
             locationMinTemperature.text = formatTemperature(it.minTemp)
             locationMaxTemperature.text = formatTemperature(it.maxTemp)
-            detailedList = it.hourlyDetails
         })
 
         getViewModel().findCityResponse.observe(this, Observer {

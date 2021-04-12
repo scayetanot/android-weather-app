@@ -30,11 +30,17 @@ class RemoteDataSourceImpl(
                 api.getForecast(BuildConfig.DARKSKY_SECRET_KEY, latitude, longitude)
 
 
-            var listOfTodayTemp = request.hourly.data
-
-            listOfTodayTemp.filter {
+            var listOfTodayTemp = request.hourly.data.filter {
+                var test = convertToReadableDay(it.time).toInt()
+                var test2 = LocalDate.now().dayOfMonth
                 convertToReadableDay(it.time).toInt() == LocalDate.now().dayOfMonth
             }
+
+          //  listOfTodayTemp.filter {
+          //      var test = convertToReadableDay(it.time).toInt()
+          //      var test2 = LocalDate.now().dayOfMonth
+          //      convertToReadableDay(it.time).toInt() == LocalDate.now().dayOfMonth
+          //  }
 
             ResultForeCast.Success(ForeCast(
                     "",

@@ -59,14 +59,14 @@ class HourlyTemperaturesFragment: Fragment() {
     }
 
     private fun initObservers() {
-        getViewModel().resultHourlyTemperature.observe(this, Observer { temperaturesList ->
+        getViewModel().resultHourlyTemperature.observe(viewLifecycleOwner, Observer { temperaturesList ->
             temperaturesList?.let {
                 initRecycler(it)
             }
         }
         )
 
-        getViewModel().errorMessage.observe(this, Observer {
+        getViewModel().errorMessage.observe(viewLifecycleOwner, Observer {
             Toast.makeText(this.context,"Connection Error", Toast.LENGTH_LONG).show();
         })
     }

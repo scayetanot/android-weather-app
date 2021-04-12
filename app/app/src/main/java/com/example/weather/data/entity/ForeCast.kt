@@ -25,5 +25,5 @@ data class ForeCast(
         @SerializedName("maxTemp")
         var maxTemp: Float?,
         @SerializedName("hourlyDetails")
-        var hourlyDetails: MutableList<HourlyDataEntity>
+        var hourlyDetails: List<HourlyDataEntity>
 ) : Serializable

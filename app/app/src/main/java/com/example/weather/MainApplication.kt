@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.weather.di.component.AppComponents
 import com.example.weather.di.component.DaggerAppComponents
 import com.example.weather.di.modules.AppModule
+import com.example.weather.di.modules.StorageModule
 import com.example.weather.utils.InternetUtil
 
 open class MainApplication : Application() {
@@ -21,5 +22,6 @@ open class MainApplication : Application() {
     private fun initDagger(app: MainApplication): AppComponents =
         DaggerAppComponents.builder()
             .appModule(AppModule(app))
+            .storageModule(StorageModule(app))
             .build()
 }

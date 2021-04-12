@@ -13,6 +13,8 @@ data class WeatherForeCastResponse(
         var timezone: String,
         @SerializedName("currently")
         var currently: CurrentlyEntity,
+        @SerializedName("daily")
+        var daily: DailyEntity,
         @SerializedName("hourly")
         var hourly: HourlyEntity
 ): Serializable

@@ -5,18 +5,28 @@
 
     </data>
 
-    <RelativeLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/cardview_light_background">
+        <ImageButton
+            android:id="@+id/close"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="top|end"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/close"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/details_recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginEnd="30dp"
+            android:scrollbars="vertical"
             android:clipToPadding="false"
             android:orientation="vertical"
             android:paddingTop="5dp" />
 
-    </RelativeLayout>
+    </FrameLayout>
 </layout>

@@ -11,13 +11,19 @@ import java.util.*
 fun convertToReadableDate(timestamp: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)
     cal.timeInMillis = timestamp * 1000
-    return DateFormat.format("dd-MM-yyyy  HH:mm:ss", cal).toString()
+    return DateFormat.format("dd-MM-yyyy  hh:mm:ss a", cal).toString()
+}
+
+fun convertToReadableDay(timestamp: Long): String {
+    val cal = Calendar.getInstance(Locale.ENGLISH)
+    cal.timeInMillis = timestamp * 1000
+    return DateFormat.format("dd", cal).toString()
 }
 
 fun convertToReadableHour(timestamp: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)
     cal.timeInMillis = timestamp * 1000
-    return DateFormat.format("HH", cal).toString()
+    return DateFormat.format("hh a", cal).toString()
 }
 
 fun formatTemperature(temperature: Float?): String {
@@ -32,7 +38,8 @@ fun findDrawable(context: Context, name: String): Drawable {
 fun AppCompatActivity.replaceFragment(fragment: Fragment, container: Int) {
     val className = fragment.javaClass.name
     supportFragmentManager
-            .beginTransaction()
-            .replace(container, fragment, className)
-            .commit()
+        .beginTransaction()
+        .replace(container, fragment, className)
+        .addToBackStack(className)
+        .commit()
 }

@@ -11,6 +11,7 @@ import com.example.weather.data.ResultForeCast
 import com.example.weather.data.entity.ForeCast
 import com.example.weather.repository.AppRepositoryImpl
 import kotlinx.coroutines.launch
+import java.io.IOException
 import java.util.*
 import javax.inject.Inject
 
@@ -50,9 +51,14 @@ class MainActivityViewModel @Inject constructor(
             val addr: List<Address>
             var cityName: String?= "Unknown city"
 
-            addr = gcd.getFromLocation(lat, lon, 1)
-            cityName = addr.firstOrNull()?.locality
-            findCityResponse.postValue(cityName!!)
+            try {
+                addr = gcd.getFromLocation(lat, lon, 1)
+                cityName = addr.firstOrNull()?.locality
+                findCityResponse.postValue(cityName!!)
+            } catch (e: IOException) {
+                _errorMessage.postValue(e.message)
+            }
+
         }
     }
 }

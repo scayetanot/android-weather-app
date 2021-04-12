@@ -40,6 +40,11 @@ class HourlyTemperaturesFragment: Fragment() {
                               savedInstanceState: Bundle?): View? {
         appComponents.inject(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.details_fragment, container,false)
+
+        binding.close.setOnClickListener(){
+            activity?.onBackPressed();
+        }
+
         return binding.root
     }
 

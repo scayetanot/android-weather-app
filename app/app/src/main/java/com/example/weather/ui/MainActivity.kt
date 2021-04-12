@@ -142,9 +142,11 @@ class MainActivity : AppCompatActivity() {
     private fun requestLocation(){
         fusedLocationClient.lastLocation
             .addOnSuccessListener { location : Location? ->
-                latitude = location!!.latitude
-                longitude = location.longitude
-                getViewModel().getForeCast(latitude, longitude)
+                if(location != null ) {
+                    latitude = location.latitude
+                    longitude = location.longitude
+                    getViewModel().getForeCast(latitude, longitude)
+                }
             }
     }
 }

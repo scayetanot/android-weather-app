@@ -47,12 +47,5 @@ class RemoteDataSourceImpl(
                 listOfTodayTemp
             ))
         }
-
-    private fun getMinTemp(listOfTemp: List<HourlyDataEntity>?): Float? {
-        return listOfTemp?.minBy { it.temperature }?.temperature
-    }
-
-    private fun getMaxTemp(listOfTemp: List<HourlyDataEntity>): Float? {
-        return listOfTemp?.maxBy { it.temperature }?.temperature
-    }
+    
 }

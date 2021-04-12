@@ -31,27 +31,19 @@ class RemoteDataSourceImpl(
 
 
             var listOfTodayTemp = request.hourly.data.filter {
-                var test = convertToReadableDay(it.time).toInt()
-                var test2 = LocalDate.now().dayOfMonth
                 convertToReadableDay(it.time).toInt() == LocalDate.now().dayOfMonth
             }
 
-          //  listOfTodayTemp.filter {
-          //      var test = convertToReadableDay(it.time).toInt()
-          //      var test2 = LocalDate.now().dayOfMonth
-          //      convertToReadableDay(it.time).toInt() == LocalDate.now().dayOfMonth
-          //  }
-
             ResultForeCast.Success(ForeCast(
-                    "",
-                    request.latitude,
-                    request.longitude,
-                    convertToReadableDate(request.currently.time),
-                    request.currently.summary,
-                    request.currently.icon,
-                    request.currently.temperature,
-                    getMinTemp(listOfTodayTemp),
-                    getMaxTemp(listOfTodayTemp),
+                "",
+                request.latitude,
+                request.longitude,
+                convertToReadableDate(request.daily.data[0].time),
+                request.daily.data[0].summary,
+                request.daily.data[0].icon,
+                request.currently.temperature,
+                request.daily.data[0].temperatureMin,
+                request.daily.data[0].temperatureMax,
                 listOfTodayTemp
             ))
         }

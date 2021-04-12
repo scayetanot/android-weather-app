@@ -1,9 +1,10 @@
 package com.example.weather.ui
 
 import android.Manifest
-import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.location.LocationListener
+import android.location.LocationManager
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -16,16 +17,16 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.weather.MainApplication
 import com.example.weather.R
-import com.example.weather.data.entity.HourlyDataEntity
 import com.example.weather.ui.fragment.HourlyTemperaturesFragment
 import com.example.weather.utils.findDrawable
 import com.example.weather.utils.formatTemperature
 import com.example.weather.utils.replaceFragment
 import com.example.weather.utils.viewModelProvider
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity() {
     private val appComponents by lazy { MainApplication.appComponents }
@@ -144,7 +145,32 @@ class MainActivity : AppCompatActivity() {
                     latitude = location.latitude
                     longitude = location.longitude
                     getViewModel().getForeCast(latitude, longitude)
+                } else {
+                    location()
                 }
             }
+    }
+
+    private val locationListener: LocationListener = object : LocationListener {
+        override fun onLocationChanged(location: Location) {
+            latitude = location.latitude
+            longitude = location.longitude
+            getViewModel().getForeCast(latitude, longitude)
+        }
+        override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
+        override fun onProviderEnabled(provider: String) {}
+        override fun onProviderDisabled(provider: String) {}
+    }
+
+    private fun location(){
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+        try {
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                     , 0L, 0f, locationListener)
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                      , 0L, 0f, locationListener)
+          } catch(ex: SecurityException) {
+              Log.d("myTag", "Security Exception, no location available")
+          }
     }
 }

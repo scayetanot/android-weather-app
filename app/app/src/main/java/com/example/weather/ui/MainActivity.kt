@@ -139,16 +139,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun requestLocation(){
+        //getFusedLocation()
+        getRealLocation()
+    }
+
+    private fun getFusedLocation() {
         fusedLocationClient.lastLocation
-            .addOnSuccessListener { location : Location? ->
-                if(location != null ) {
-                    latitude = location.latitude
-                    longitude = location.longitude
-                    getViewModel().getForeCast(latitude, longitude)
-                } else {
-                    location()
-                }
-            }
+                 .addOnSuccessListener { location : Location? ->
+                     if(location != null ) {
+                         latitude = location.latitude
+                         longitude = location.longitude
+                         getViewModel().getForeCast(latitude, longitude)
+                     } else {
+                         getRealLocation()
+                     }
+                 }
+    }
+    private fun getRealLocation(){
+        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
+        try {
+            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
+                    , 0L, 0f, locationListener)
+            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER
+                    , 0L, 0f, locationListener)
+        } catch(ex: SecurityException) {
+            Log.d("myTag", "Security Exception, no location available")
+        }
     }
 
     private val locationListener: LocationListener = object : LocationListener {
@@ -160,17 +176,5 @@ class MainActivity : AppCompatActivity() {
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
-    }
-
-    private fun location(){
-        val locationManager = getSystemService(LOCATION_SERVICE) as LocationManager?
-        try {
-            locationManager?.requestLocationUpdates(LocationManager.NETWORK_PROVIDER
-                     , 0L, 0f, locationListener)
-            locationManager?.requestLocationUpdates(LocationManager.GPS_PROVIDER
-                      , 0L, 0f, locationListener)
-          } catch(ex: SecurityException) {
-              Log.d("myTag", "Security Exception, no location available")
-          }
     }
 }

@@ -2,12 +2,18 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e0dff21da22fee61cd6ede65b724425f",
+    "identityHash": "e7c588aef2641c9106132205ab0c8f59",
     "entities": [
       {
         "tableName": "ForeCast",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`city` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `dateTime` TEXT NOT NULL, `summary` TEXT NOT NULL, `icon` TEXT NOT NULL, `currentTemp` REAL, `minTemp` REAL, `maxTemp` REAL, `hourlyDetails` TEXT NOT NULL, PRIMARY KEY(`city`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`uuid` TEXT NOT NULL, `city` TEXT NOT NULL, `latitude` REAL NOT NULL, `longitude` REAL NOT NULL, `dateTime` TEXT NOT NULL, `summary` TEXT NOT NULL, `icon` TEXT NOT NULL, `currentTemp` REAL, `minTemp` REAL, `maxTemp` REAL, `hourlyDetails` TEXT NOT NULL, PRIMARY KEY(`uuid`))",
         "fields": [
+          {
+            "fieldPath": "uuid",
+            "columnName": "uuid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
           {
             "fieldPath": "city",
             "columnName": "city",
@@ -71,7 +77,7 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "city"
+            "uuid"
           ],
           "autoGenerate": false
         },
@@ -82,7 +88,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e0dff21da22fee61cd6ede65b724425f')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e7c588aef2641c9106132205ab0c8f59')"
     ]
   }
 }

@@ -1,11 +1,16 @@
-package com.example.weather.data.entity
+package com.example.weather.data.entity.model
 
+import androidx.annotation.NonNull
 import androidx.room.Entity
+import com.example.weather.data.entity.HourlyDataEntity
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
+import java.util.*
 
-@Entity(tableName = "ForeCast", primaryKeys = ["city"])
+@Entity(tableName = "ForeCast", primaryKeys = ["uuid"])
 data class ForeCast(
+        @SerializedName("uuid")
+        @NonNull var uuid: String,
         @SerializedName("city")
         var city: String,
         @SerializedName("latitude")

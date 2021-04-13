@@ -1,14 +1,14 @@
 package com.example.weather.data
 
 import androidx.room.TypeConverter
-import com.example.weather.data.entity.CurrentlyEntity
-import com.example.weather.data.entity.ForeCast
+import com.example.weather.data.entity.model.ForeCast
 import com.example.weather.data.entity.HourlyDataEntity
-import com.example.weather.data.entity.HourlyEntity
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.io.Serializable
 import java.lang.reflect.Type
+import java.util.*
+import kotlin.collections.ArrayList
 
 class RoomDataConverter : Serializable {
 

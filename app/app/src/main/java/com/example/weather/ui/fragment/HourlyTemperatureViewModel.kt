@@ -8,6 +8,7 @@ import com.example.weather.data.ResultForeCast
 import com.example.weather.data.entity.HourlyDataEntity
 import com.example.weather.repository.AppRepositoryImpl
 import kotlinx.coroutines.launch
+import java.util.*
 import javax.inject.Inject
 
 class HourlyTemperatureViewModel @Inject constructor(
@@ -20,10 +21,10 @@ class HourlyTemperatureViewModel @Inject constructor(
     private var _errorMessage = MutableLiveData<String>()
     var errorMessage: LiveData<String> = _errorMessage
 
-    fun getHourlyTemperatures(lat: Double, lon: Double){
+    fun getHourlyTemperatures(uuid: String?){
         viewModelScope.launch {
             try{
-                when(val response = repositoryImpl.getDetailsForHourlyForecast()){
+                when(val response = repositoryImpl.getDetailsForHourlyForecast(uuid!!)){
                     is ResultForeCast.Success -> {
                         _resultHourlyTemperature.postValue(response.data)
                     }

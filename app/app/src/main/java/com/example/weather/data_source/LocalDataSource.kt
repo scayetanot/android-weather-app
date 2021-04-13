@@ -6,9 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.weather.data.RoomDataConverter
-import com.example.weather.data.entity.ForeCast
-import com.example.weather.data.entity.HourlyDataEntity
-import com.example.weather.data.entity.response.WeatherForeCastResponse
+import com.example.weather.data.entity.model.ForeCast
 
 @Database(entities = [ForeCast::class], version = 1)
 @TypeConverters(RoomDataConverter::class)

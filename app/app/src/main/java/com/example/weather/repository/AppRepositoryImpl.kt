@@ -2,16 +2,15 @@ package com.example.weather.repository
 
 import com.example.weather.data.RemoteDataNotFoundException
 import com.example.weather.data.ResultForeCast
-import com.example.weather.data.entity.ForeCast
+import com.example.weather.data.entity.model.ForeCast
 import com.example.weather.data.entity.HourlyDataEntity
-import com.example.weather.data.entity.response.WeatherForeCastResponse
-import com.example.weather.data_source.LocalDataSource
 import com.example.weather.data_source.LocalDataSourceImpl
 import com.example.weather.data_source.RemoteDataSource
 import com.example.weather.di.IoDispatcher
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import com.example.weather.utils.InternetUtil
+import java.util.*
 
 
 class AppRepositoryImpl(
@@ -27,6 +26,8 @@ class AppRepositoryImpl(
             is ResultForeCast.Success -> {
                 val response = result.data
                 withContext(ioDispatcher) {
+                    // for the purpose of the App, all entities are deleted
+                    //localDataSource.deleteAllForecast()
                     localDataSource.setForecast(response)
                 }
                 ResultForeCast.Success(response)
@@ -50,8 +51,8 @@ class AppRepositoryImpl(
         }
     }
 
-    override suspend fun getDetailsForHourlyForecast(): ResultForeCast<List<HourlyDataEntity>> =
+    override suspend fun getDetailsForHourlyForecast(uuid: String): ResultForeCast<List<HourlyDataEntity>> =
         withContext(ioDispatcher){
-            ResultForeCast.Success(localDataSource.getHourlyTemperature().hourlyDetails)
+            ResultForeCast.Success(localDataSource.getHourlyTemperature(uuid).hourlyDetails)
         }
 }

@@ -22,6 +22,7 @@ import com.example.weather.utils.findDrawable
 import com.example.weather.utils.formatTemperature
 import com.example.weather.utils.replaceFragment
 import com.example.weather.utils.viewModelProvider
+import com.google.android.gms.common.data.DataHolder.empty
 import com.google.android.gms.location.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -34,8 +35,11 @@ class MainActivity : AppCompatActivity() {
     private val DFLT_LAT: Double = 33.942791
     private val DFLT_LONG: Double = -118.410042
 
+
     private var latitude: Double = DFLT_LAT
     private var longitude: Double = DFLT_LONG
+
+    private lateinit  var uuid: String
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -53,9 +57,9 @@ class MainActivity : AppCompatActivity() {
         checkLocationPermission()
 
         weatherLayout.setOnClickListener {
-            if (savedInstanceState == null) {
+            if (savedInstanceState == null && uuid != null) {
                 frame_layout_container.visibility = View.VISIBLE
-                replaceFragment(HourlyTemperaturesFragment(), R.id.frame_layout_container)
+                replaceFragment(HourlyTemperaturesFragment(), R.id.frame_layout_container, uuid)
             }
         }
 
@@ -79,6 +83,7 @@ class MainActivity : AppCompatActivity() {
             locationCurrentTemperature.text = formatTemperature(it.currentTemp)
             locationMinTemperature.text = formatTemperature(it.minTemp)
             locationMaxTemperature.text = formatTemperature(it.maxTemp)
+            uuid = it.uuid
         })
 
         getViewModel().findCityResponse.observe(this, Observer {
@@ -171,10 +176,15 @@ class MainActivity : AppCompatActivity() {
         override fun onLocationChanged(location: Location) {
             latitude = location.latitude
             longitude = location.longitude
+           // uuid = empty<UUID>()
             getViewModel().getForeCast(latitude, longitude)
         }
         override fun onStatusChanged(provider: String, status: Int, extras: Bundle) {}
         override fun onProviderEnabled(provider: String) {}
         override fun onProviderDisabled(provider: String) {}
+    }
+
+    companion object {
+        val UUID_KEY: String = "UUID"
     }
 }

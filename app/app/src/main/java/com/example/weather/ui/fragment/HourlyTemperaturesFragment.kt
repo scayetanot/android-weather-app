@@ -14,16 +14,15 @@ import com.example.weather.MainApplication
 import com.example.weather.R
 import com.example.weather.data.entity.HourlyDataEntity
 import com.example.weather.databinding.DetailsFragmentBinding
+import com.example.weather.ui.MainActivity.Companion.UUID_KEY
 import com.example.weather.utils.viewModelProvider
+import java.util.*
 import javax.inject.Inject
 
 class HourlyTemperaturesFragment: Fragment() {
 
     private lateinit var temperaturesAdapter: TemperaturesAdapter
     private val appComponents by lazy { MainApplication.appComponents }
-
-    val DFLT_LAT: Double = 33.942791
-    val DFLT_LONG: Double = -118.410042
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -33,14 +32,14 @@ class HourlyTemperaturesFragment: Fragment() {
     }
 
     private lateinit var binding: DetailsFragmentBinding
-
+    private var uuid: String? = "NO_UUID"
 
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         appComponents.inject(this)
         binding = DataBindingUtil.inflate(inflater, R.layout.details_fragment, container,false)
-
+        uuid = arguments?.getString(UUID_KEY)
         binding.close.setOnClickListener(){
             activity?.onBackPressed();
         }
@@ -55,7 +54,7 @@ class HourlyTemperaturesFragment: Fragment() {
     }
 
     private fun initViews() {
-        getViewModel().getHourlyTemperatures(DFLT_LAT, DFLT_LONG)
+        getViewModel().getHourlyTemperatures(uuid)
     }
 
     private fun initObservers() {

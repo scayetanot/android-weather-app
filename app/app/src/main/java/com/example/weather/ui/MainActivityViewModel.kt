@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.weather.data.ResultForeCast
-import com.example.weather.data.entity.ForeCast
+import com.example.weather.data.entity.model.ForeCast
 import com.example.weather.repository.AppRepositoryImpl
 import kotlinx.coroutines.launch
 import java.io.IOException

@@ -1,12 +1,11 @@
-GOAT - Android Interview
-
+Weather application
 
 What to build:
 
 
 The goal of this assignment is to build a small app to give the user information about the weather in their current location. This is an opportunity for you to show off your skills!
 
-The app should use the Dark Sky API (log in with the account user name jarrod.holliday@goat.com with password 8VqH^*H8RaFadLD at https://darksky.net/dev and follow their doc for using their api).
+The app should use the Dark Sky API (log in with the account user name --- at https://darksky.net/dev and follow their doc for using their api).
 
 
 Overview: the Dark Sky app should display the current weather conditions at Los Angeles or the user’s current location.
@@ -34,6 +33,5 @@ What to use:
 - Use a clear architecture pattern that you feel most comfortable with (MVC is still valid).
 - Be prepared to clearly explain how/why you architect your code.
 
-Please upload your project to Github as a private with an invitation to jarrodholliday. When completed reply all to this email with a link (please commit frequently as you work on your assignment)!  
 
 

@@ -2,11 +2,13 @@ package com.example.weather.utils
 
 import android.content.Context
 import android.graphics.drawable.Drawable
+import android.os.Bundle
 import android.text.format.DateFormat
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.example.weather.ui.MainActivity.Companion.UUID_KEY
 import java.util.*
+
 
 fun convertToReadableDate(timestamp: Long): String {
     val cal = Calendar.getInstance(Locale.ENGLISH)
@@ -35,8 +37,13 @@ fun findDrawable(context: Context, name: String): Drawable {
     return context.resources.getDrawable(drawableId)
 };
 
-fun AppCompatActivity.replaceFragment(fragment: Fragment, container: Int) {
+fun AppCompatActivity.replaceFragment(fragment: Fragment, container: Int, uuid: String) {
     val className = fragment.javaClass.name
+
+    val bundle = Bundle()
+    bundle.putString(UUID_KEY, uuid)
+    fragment.arguments = bundle
+
     supportFragmentManager
         .beginTransaction()
         .replace(container, fragment, className)
